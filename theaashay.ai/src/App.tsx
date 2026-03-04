@@ -25,7 +25,7 @@ import {
   Brain
 } from 'lucide-react';
 
-// --- Components ---
+
 
 const DataStream = () => {
   const [streams, setStreams] = useState<string[]>([]);
@@ -115,11 +115,11 @@ const HologramCore = () => {
     <div className="relative w-72 h-72 md:w-[500px] md:h-[500px] flex items-center justify-center">
       <div className="scanline rounded-full" />
 
-      {/* HUD Elements */}
+
       <div className="absolute inset-0 border-[1px] border-electric-blue/10 rounded-full animate-pulse-slow" />
       <div className="absolute inset-10 border-[1px] border-electric-blue/5 rounded-full" />
 
-      {/* Rotating Data Rings */}
+
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
@@ -130,7 +130,7 @@ const HologramCore = () => {
         />
       ))}
 
-      {/* Central Processor */}
+
       <motion.div
         animate={{
           scale: [1, 1.05, 1],
@@ -152,7 +152,7 @@ const HologramCore = () => {
           <div className="data-text text-[8px] animate-pulse">Processing_R1</div>
         </div>
 
-        {/* Floating Code Snippets */}
+
         <AnimatePresence>
           {[...Array(4)].map((_, i) => (
             <motion.div
@@ -169,7 +169,7 @@ const HologramCore = () => {
         </AnimatePresence>
       </motion.div>
 
-      {/* Orbiting Nodes */}
+
       {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
@@ -260,9 +260,9 @@ export default function App() {
       <DataStream />
       <Navbar />
 
-      {/* Hero Section */}
+
       <section className="relative pt-48 pb-32 px-6 overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
-        {/* Hologram Behind Text */}
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.25, scale: 1 }}
@@ -322,7 +322,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Architecture Section */}
+
       <section id="architecture" className="py-20 md:py-32 px-6 border-y border-white/5 bg-white/[0.01]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
           <div>
@@ -375,7 +375,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Security Section */}
+
       <section id="security" className="py-20 md:py-32 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 md:gap-20 items-center">
@@ -386,7 +386,7 @@ export default function App() {
                 <div className="data-text text-lg md:text-xl mb-2">ENCRYPTION_ACTIVE</div>
                 <div className="font-mono text-[8px] md:text-[10px] text-white/40">AES-256-GCM_STRICT_MODE</div>
 
-                {/* Decorative bits */}
+
                 <div className="absolute top-4 left-4 data-text text-[8px] md:text-[10px]">SEC_LEVEL: ALPHA</div>
                 <div className="absolute bottom-4 right-4 data-text text-[8px] md:text-[10px]">NODE_ID: {Math.random().toString(16).slice(2, 10).toUpperCase()}</div>
               </div>
@@ -418,7 +418,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Features Section */}
+
       <section id="features" className="py-20 md:py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:20 gap-8">
@@ -442,7 +442,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Advancements Section */}
+
       <section id="advancements" className="py-20 md:py-32 px-6 bg-white/[0.01] border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
@@ -464,7 +464,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Waitlist Section */}
+
       <section className="py-24 md:py-48 px-6 relative overflow-hidden text-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-electric-blue/5 rounded-full blur-[60px] md:blur-[120px] -z-10" />
 
@@ -506,7 +506,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Footer */}
+
       <footer className="py-12 px-6 border-t border-white/5 bg-black">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex flex-col items-center md:items-start">
