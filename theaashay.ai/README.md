@@ -82,7 +82,7 @@ graph TD
 3.  **Environment Configuration:**
     Create a `.env.local` file in the root directory:
     ```env
-    VITE_GEMINI_API_KEY=your_optional_key
+    VITE_EXTERNAL_API_KEY=your_optional_key
     # Add Firebase & other config as needed
     ```
 
