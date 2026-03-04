@@ -1,8 +1,8 @@
 import streamlit as st
 import time
-from engine import engine
+from engine import engine, HAS_STT, HAS_TTS
 
-# --- Page Configuration ---
+# Basic streamlit setup
 st.set_page_config(
     page_title="THEAASHAY.AI | Voice Intelligence",
     page_icon="🤖",
@@ -10,16 +10,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- Professional Styling ---
+# Some custom CSS to make it look premium
 st.markdown("""
     <style>
-    /* Main Theme */
+    /* Dark background for that pro look */
     .stApp {
         background-color: #050505;
         color: #ffffff;
     }
     
-    /* Neon Blue Accents */
+    /* Mic/Send buttons */
     .stButton>button {
         background-color: #00D4FF22;
         color: #00D4FF;
@@ -37,7 +37,7 @@ st.markdown("""
         box-shadow: 0 0 15px #00D4FF33;
     }
     
-    /* Professional Chat Styling */
+    /* Message bubbles styling */
     .chat-bubble {
         padding: 1.5rem;
         border-radius: 10px;
@@ -54,13 +54,13 @@ st.markdown("""
         border-left: 3px solid #00D4FF;
     }
     
-    /* Glassmorphism Sidebar */
+    /* Sidebar styling */
     [data-testid="stSidebar"] {
         background-color: #0a0a0a;
         border-right: 1px solid #ffffff11;
     }
     
-    /* Header */
+    /* Typography */
     .main-header {
         font-family: 'Space Grotesk', sans-serif;
         font-size: 3rem;
@@ -81,26 +81,24 @@ st.markdown("""
         margin-bottom: 2rem;
     }
     
-    /* Custom Input */
+    /* Input box colors */
     .stTextInput>div>div>input {
         background-color: #0a0a0a;
         border: 1px solid #ffffff11;
         color: #ffffff;
     }
     </style>
-""", unsafe_allow_all_html=True)
+""", unsafe_allow_html=True)
 
-# --- State Management ---
+# Tracks chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "voice_active" not in st.session_state:
     st.session_state.voice_active = False
 
-# --- UI Header ---
-st.markdown('<h1 class="main-header">THEAASHAY.<span class="neon-text">AI</span></h1>', unsafe_allow_all_html=True)
-st.markdown('<p class="sub-header">SYSTEM_STATUS: OPERATIONAL | LOCAL_CORE: DEEPSEEK_R1</p>', unsafe_allow_all_html=True)
+st.markdown('<h1 class="main-header">THEAASHAY.<span class="neon-text">AI</span></h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">SYSTEM_STATUS: OPERATIONAL | LOCAL_CORE: DEEPSEEK_R1</p>', unsafe_allow_html=True)
 
-# --- Chat Display ---
 chat_container = st.container()
 
 def display_chat():
@@ -114,12 +112,12 @@ def display_chat():
                     </div>
                     {message["content"]}
                 </div>
-            """, unsafe_allow_all_html=True)
+            """, unsafe_allow_html=True)
 
 display_chat()
 
-# --- Voice Interaction Logic ---
 def trigger_voice():
+    """Starts the listening process"""
     with st.spinner("Listening..."):
         text = engine.listen()
         if text and text != "Sorry, I didn't catch that.":
@@ -128,34 +126,33 @@ def trigger_voice():
             st.warning(text)
 
 def process_input(user_input):
+    """Handles logic for message exchange"""
     st.session_state.messages.append({"role": "user", "content": user_input})
-    
-    # Placeholder for AI response during stream
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        
-        # Generate stream
+        # Get the streamed response
         response_stream = engine.chat(st.session_state.messages)
         for chunk in response_stream:
             content = chunk['message']['content']
             full_response += content
             message_placeholder.markdown(full_response + "▌")
-        
         message_placeholder.markdown(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        
-        # Speak response
+        # Optional: Speak the response
         engine.speak(full_response)
-    
     st.rerun()
 
-# --- Interaction Bar ---
+# Controls bar
 cols = st.columns([0.1, 0.8, 0.1])
 
 with cols[0]:
-    if st.button("🎤", help="Voice Command"):
-        trigger_voice()
+    mic_label = "🎤" if HAS_STT else "🔇"
+    if st.button(mic_label, help="Voice Command" if HAS_STT else "Voice Disabled"):
+        if HAS_STT:
+            trigger_voice()
+        else:
+            st.error("Speech Recognition is not available. Please install 'SpeechRecognition' and 'PyAudio'.")
 
 with cols[1]:
     user_input = st.text_input("Enter Command...", label_visibility="collapsed", placeholder="SYSTEM_PROMPT> Enter query here")
@@ -165,12 +162,14 @@ with cols[2]:
         if user_input:
             process_input(user_input)
 
-# --- Footer Info ---
-st.sidebar.markdown("""
+# Settings sidebar
+st.sidebar.markdown(f"""
 ### 🛠️ CONFIG
 - **MODEL**: DEEPSEEK R1
 - **PROVIDER**: OLLAMA
 - **LATENCY**: LOCAL_DAEMON
+- **TTS**: {"ENABLED" if HAS_TTS else "DISABLED"}
+- **STT**: {"ENABLED" if HAS_STT else "DISABLED"}
 """)
 
 if st.sidebar.button("Clear Memory"):

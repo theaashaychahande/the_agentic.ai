@@ -27,6 +27,7 @@ import {
 
 
 
+// This generates those floating hex codes on the left
 const DataStream = () => {
   const [streams, setStreams] = useState<string[]>([]);
 
@@ -55,6 +56,7 @@ const DataStream = () => {
   );
 };
 
+// Subtle grid background effect
 const CoordinateSystem = () => (
   <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0 overflow-hidden">
     <div className="absolute top-0 left-0 w-full h-full grid-bg" />
@@ -110,6 +112,7 @@ const Navbar = () => {
   );
 };
 
+// The big glowing central animation
 const HologramCore = () => {
   return (
     <div className="relative w-72 h-72 md:w-[500px] md:h-[500px] flex items-center justify-center">
@@ -184,6 +187,7 @@ const HologramCore = () => {
   );
 };
 
+// Reusable card component for features
 const TechCard = ({ icon: Icon, title, description, tag }: { icon: any, title: string, description: string, tag: string, key?: React.Key }) => {
   return (
     <motion.div
@@ -216,6 +220,7 @@ const TechCard = ({ icon: Icon, title, description, tag }: { icon: any, title: s
   );
 };
 
+// Nodes for the architecture visualization
 const ArchitectureNode = ({ title, desc, icon: Icon, active }: { title: string, desc: string, icon: any, active?: boolean }) => (
   <div className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 p-4 sm:p-6 tech-border transition-all cursor-pointer group/node ${active ? 'bg-electric-blue/10 border-electric-blue/40 opacity-100' : 'bg-white/5 opacity-50 hover:opacity-100 hover:bg-electric-blue/10 hover:border-electric-blue/40'}`}>
     <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-colors ${active ? 'text-electric-blue' : 'text-white/20 group-hover/node:text-electric-blue'}`}>
@@ -232,6 +237,7 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [mounted, setMounted] = useState(false);
 
+  // Avoid hydration mismatch
   useEffect(() => setMounted(true), []);
 
   const features = [
