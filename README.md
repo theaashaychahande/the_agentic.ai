@@ -46,38 +46,6 @@ graph TD
 - **Icons:** Lucide React
 - **Runtime:** Node.js
 
-## ⚙️ Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+)
-- [Ollama](https://ollama.ai/) installed and running.
-- `deepseek-r1` model pulled: `ollama pull deepseek-r1`
-
-### Installation
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/yourusername/aashay.ai.git
-    cd aashay.ai
-    ```
-
-2.  **Install Dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Environment Configuration:**
-    Create a `.env.local` file in the root directory:
-    ```env
-    VITE_EXTERNAL_API_KEY=your_optional_key
-    # Add Firebase & other config as needed
-    ```
-
-4.  **Run Development Server:**
-    ```bash
-    npm run dev
-    ```
-
 ## 🗺️ Roadmap v2.0
 
 - [ ] **Autonomous Agents:** Browser automation via Playwright for web-based task execution.
